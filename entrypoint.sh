@@ -4,19 +4,19 @@ set -e
 create_pid_dir() {
   mkdir -p /run/apt-cacher-ng
   chmod -R 0755 /run/apt-cacher-ng
-  chown ${APT_CACHER_NG_USER}:${APT_CACHER_NG_USER} /run/apt-cacher-ng
+  chown apt-cacher-ng:apt-cacher-ng /run/apt-cacher-ng
 }
 
 create_cache_dir() {
-  mkdir -p ${APT_CACHER_NG_CACHE_DIR}
-  chmod -R 0755 ${APT_CACHER_NG_CACHE_DIR}
-  chown -R ${APT_CACHER_NG_USER}:${APT_CACHER_NG_USER} ${APT_CACHER_NG_CACHE_DIR}
+  mkdir -p /acng/cache
+  chmod -R 0755 /acng/cache
+  chown -R apt-cacher-ng:apt-cacher-ng /acng/cache
 }
 
 create_log_dir() {
-  mkdir -p ${APT_CACHER_NG_LOG_DIR}
-  chmod -R 0755 ${APT_CACHER_NG_LOG_DIR}
-  chown -R ${APT_CACHER_NG_USER}:${APT_CACHER_NG_USER} ${APT_CACHER_NG_LOG_DIR}
+  mkdir -p /acng/log
+  chmod -R 0755 /acng/log
+  chown -R apt-cacher-ng:apt-cacher-ng /acng/log
 }
 
 create_pid_dir
@@ -34,7 +34,7 @@ fi
 
 # default behaviour is to launch apt-cacher-ng
 if [[ -z ${1} ]]; then
-  exec start-stop-daemon --start --chuid ${APT_CACHER_NG_USER}:${APT_CACHER_NG_USER} \
+  exec start-stop-daemon --start --chuid apt-cacher-ng:apt-cacher-ng \
     --exec "$(command -v apt-cacher-ng)" -- -c /etc/apt-cacher-ng ${EXTRA_ARGS}
 else
   exec "$@"
