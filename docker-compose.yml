@@ -6,12 +6,9 @@ services:
     image: registry.jpconsulted.com/acng/acng:latest
     init: true
     ports:
-    - "3142:3142"
+      - "3142:3142"
     volumes:
-    - acng-cache:/acng/cache
-    - acng-logs:/acng/log
-
+      - acng:/acng
+      
 volumes:
-  acng-cache:
-  acng-logs:
-
+  acng:

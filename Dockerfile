@@ -10,9 +10,6 @@ ENV APT_CACHER_NG_CACHE_DIR=/acng/cache \
 
 RUN groupadd -g ${APT_CACHER_NG_GID} && \
     useradd -u ${APT_CACHER_NG_UID} -g ${APT_CACHER_NG_GID} -d /acng ${APT_CACHER_NG_USER} && \
-    mkdir -p ${APT_CACHER_NG_CACHE_DIR} ${APT_CACHER_NG_LOG_DIR} && \
-    chown -R ${APT_CACHER_NG_USER}:${APT_CACHER_NG_USER} ${APT_CACHER_NG_CACHE_DIR} && \
-    chown -R ${APT_CACHER_NG_USER}:${APT_CACHER_NG_USER} ${APT_CACHER_NG_LOG_DIR} && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y apt-cacher-ng* ca-certificates wget && \
     sed 's/# ForeGround: 0/ForeGround: 1/' -i /etc/apt-cacher-ng/acng.conf && \
