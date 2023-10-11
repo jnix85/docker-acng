@@ -16,6 +16,7 @@ RUN groupadd -g ${APT_CACHER_NG_GID} && \
     sed 's/# PassThroughPattern:.*this would allow.*/PassThroughPattern: .* #/' -i /etc/apt-cacher-ng/acng.conf && \
     apt-get clean 
 
+COPY acng.conf /etc/apt-cacher-ng/acng.conf
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN chmod 755 /sbin/entrypoint.sh
