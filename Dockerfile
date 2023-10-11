@@ -4,13 +4,9 @@ LABEL maintainer="jparks@jpconsulted.com"
 
 ENV APT_CACHER_NG_CACHE_DIR=/acng/cache \
     APT_CACHER_NG_LOG_DIR=/acng/log \
-    APT_CACHER_NG_USER=apt-cacher-ng \
-    APT_CACHER_NG_UID=11001 \
-    APT_CACHER_NG_GID=11001
+    APT_CACHER_NG_USER=apt-cacher-ng
 
-RUN groupadd -g ${APT_CACHER_NG_GID} && \
-    useradd -u ${APT_CACHER_NG_UID} -g ${APT_CACHER_NG_GID} -d /acng ${APT_CACHER_NG_USER} && \
-    apt-get update && \
+RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y apt-cacher-ng* ca-certificates wget && \
     sed 's/# ForeGround: 0/ForeGround: 1/' -i /etc/apt-cacher-ng/acng.conf && \
     sed 's/# PassThroughPattern:.*this would allow.*/PassThroughPattern: .* #/' -i /etc/apt-cacher-ng/acng.conf && \
