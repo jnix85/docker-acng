@@ -2,9 +2,12 @@ FROM ubuntu:22.04
 
 LABEL maintainer="jparks@jpconsulted.com"
 
-RUN apt-get update && \
+RUN groupadd -g 11001 apt-cacher-ng && \
+    useradd -g 11001 -u 11001 -d /acng -M apt-cacher-ng && \
+    apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y apt-cacher-ng* ca-certificates wget && \
     apt-get clean 
+
 
 COPY acng.conf /etc/apt-cacher-ng/acng.conf
 COPY entrypoint.sh /sbin/entrypoint.sh
